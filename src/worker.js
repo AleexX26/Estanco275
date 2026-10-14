@@ -49,7 +49,8 @@ export default {
     }
 
     if (request.method === 'POST') {
-      if (!env.ADMIN_PASSWORD || !env.CONFIG) return json({ error: 'Panel sin configurar (falta ADMIN_PASSWORD o el KV).' }, 503);
+      if (!env.ADMIN_PASSWORD) return json({ error: 'Panel sin configurar: falta el secreto ADMIN_PASSWORD.' }, 503);
+      if (!env.CONFIG) return json({ error: 'Panel sin configurar: falta el KV CONFIG.' }, 503);
       const token = (request.headers.get('authorization') || '').replace(/^Bearer\s+/i, '');
       if (!(await sameString(token, env.ADMIN_PASSWORD))) {
         await new Promise((r) => setTimeout(r, 800));

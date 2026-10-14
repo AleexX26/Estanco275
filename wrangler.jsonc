@@ -1,6 +1,7 @@
 {
   "name": "estanco275",
   "main": "src/worker.js",
+  "keep_vars": true,
   "compatibility_date": "2026-10-14",
   "assets": {
     "directory": ".",
