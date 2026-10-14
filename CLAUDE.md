@@ -12,12 +12,16 @@ Web informativa estática del Estanco 275 (Av. de la Aviación 71, Latina, Madri
 - `404.html`, `robots.txt`
 - `assets/styles.css` (tema tabaco: marrón oscuro, latón, rojo rótulo), `assets/favicon.svg`
 
+## Panel de administración
+- `/admin/` (noindex): formulario para editar horario, teléfono, correo y dirección. Guarda en Cloudflare KV (binding `CONFIG`, se autoprovisiona al desplegar). Escritura protegida con el secreto `ADMIN_PASSWORD` (Settings > Variables y secretos). Worker en `src/worker.js`; `assets/datos.js` aplica los datos a la web (HTML estático = valores por defecto).
+
 ## Comandos
 - Abrir `index.html` en el navegador (o `npx serve .`). Deploy previsto: Cloudflare Pages.
 
 ## Decisiones
+- 2026-10-14: panel propio (Worker + KV + contraseña) en vez de Decap CMS: el dueño no necesita GitHub.
 - 2026-10-14: mapa embebido con carga bajo demanda (botón) para no conectar con Google sin acción; reseñas solo enlazadas (sin API). Servicios: shisha, fotocopias, bebidas frías, ONCE.
-- 2026-10-14: tema estanco (madera oscura + latón + rótulo rojo); sin fotos propias ni mapa incrustado (privacidad, sin derechos de imagen).
+- 2026-10-14: tema estanco (madera oscura + latón + rótulo rojo); sin fotos propias (derechos de imagen).
 - 2026-10-14: sin venta ni promoción de productos de tabaco (publicidad prohibida); solo info + aviso de menores/salud.
 - 2026-10-14: datos de Google Maps: 608 52 56 17, L–V 9–14 y 16–20:30, S 9–14, D cerrado; 4,4★ (19 reseñas).
 

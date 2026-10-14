@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Panel · Estanco 275</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#17110c">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="stylesheet" href="/assets/styles.css">
+<style>
+.admin{max-width:640px;padding:30px 0 80px}
+.admin h1{font-size:clamp(30px,6vw,44px);margin:0 0 8px}
+.admin p.lead{color:var(--mute);margin:0 0 26px}
+.admin fieldset{border:1px solid var(--line);border-radius:6px;padding:20px 20px 6px;margin:0 0 22px;background:var(--panel)}
+.admin legend{padding:0 8px;color:var(--brass);font:600 12px system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase}
+.admin label{display:block;margin:0 0 16px;font:600 14px system-ui,sans-serif;color:var(--mute)}
+.admin input{display:block;width:100%;margin-top:6px;padding:12px 14px;font:17px Georgia,serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:4px}
+.admin input:focus{outline:2px solid var(--brass);outline-offset:1px}
+.admin small{display:block;font-weight:400;margin-top:4px}
+.admin .button{cursor:pointer;width:100%;justify-content:center}
+.msg{margin:16px 0 0;padding:12px 14px;border-radius:4px;font:15px system-ui,sans-serif}
+.msg.ok{border:1px solid #6a8a3a;color:#c8e08c}.msg.err{border:1px solid var(--red);color:#ff9a90}
+</style>
+</head>
+<body>
+<header class="site-header wrap">
+  <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">275</span><span>Panel</span></a>
+  <nav aria-label="Navegación"><a href="/">Ver la web</a></nav>
+</header>
+<main class="wrap admin">
+  <h1>Datos del estanco</h1>
+  <p class="lead">Cambia aquí el horario, el teléfono, el correo y la dirección. Se actualiza en la web al guardar.</p>
+  <form id="f" autocomplete="off">
+    <fieldset><legend>Horario</legend>
+      <label>Lunes a viernes<input name="semana" required maxlength="120"><small>Ej: 9:00–14:00 · 16:00–20:30</small></label>
+      <label>Sábado<input name="sabado" required maxlength="120"></label>
+      <label>Domingo<input name="domingo" required maxlength="120"><small>Escribe «Cerrado» si no abrís.</small></label>
+    </fieldset>
+    <fieldset><legend>Contacto</legend>
+      <label>Teléfono<input name="telefono" type="tel" required maxlength="30"></label>
+      <label>Correo para fotocopias<input name="correo" type="email" maxlength="100"><small>Déjalo vacío para ocultarlo.</small></label>
+    </fieldset>
+    <fieldset><legend>Dirección</legend>
+      <label>Calle y número<input name="direccion" required maxlength="120"></label>
+      <label>Código postal · barrio · ciudad<input name="ciudad" required maxlength="120"></label>
+    </fieldset>
+    <fieldset><legend>Seguridad</legend>
+      <label>Contraseña del panel<input name="password" type="password" required autocomplete="current-password"></label>
+    </fieldset>
+    <button class="button button-primary" type="submit">Guardar cambios</button>
+    <p id="msg" class="msg" hidden role="status"></p>
+  </form>
+</main>
+<script>
+(function(){
+var f=document.getElementById('f'),msg=document.getElementById('msg');
+var defaults={telefono:'608 52 56 17',correo:'',direccion:'Avenida de la Aviación, 71',ciudad:'28044 · Latina · Madrid',horario:{semana:'9:00–14:00 · 16:00–20:30',sabado:'9:00–14:00',domingo:'Cerrado'}};
+function fill(c){f.semana.value=c.horario.semana;f.sabado.value=c.horario.sabado;f.domingo.value=c.horario.domingo;f.telefono.value=c.telefono;f.correo.value=c.correo||'';f.direccion.value=c.direccion;f.ciudad.value=c.ciudad}
+function show(t,ok){msg.hidden=false;msg.className='msg '+(ok?'ok':'err');msg.textContent=t}
+fill(defaults);
+fetch('/api/config').then(function(r){return r.status===200?r.json():null}).then(function(c){if(c)fill(c)}).catch(function(){});
+f.addEventListener('submit',function(e){
+  e.preventDefault();
+  var body={telefono:f.telefono.value,correo:f.correo.value,direccion:f.direccion.value,ciudad:f.ciudad.value,horario:{semana:f.semana.value,sabado:f.sabado.value,domingo:f.domingo.value}};
+  fetch('/api/config',{method:'POST',headers:{'content-type':'application/json',authorization:'Bearer '+f.password.value},body:JSON.stringify(body)})
+   .then(function(r){return r.json().then(function(j){return{r:r,j:j}})})
+   .then(function(x){x.r.ok?show('Guardado. Ya se ve en la web.',true):show(x.j.error||'No se pudo guardar.',false)})
+   .catch(function(){show('Sin conexión. Inténtalo de nuevo.',false)});
+});
+})();
+</script>
+</body>
+</html>

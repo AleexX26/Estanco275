@@ -106,3 +106,5 @@ body{font-size:16px}
 .footer-bottom{flex-direction:column;gap:8px}
 .legal-data div{padding:12px 14px}
 }
+.strip i{font-style:normal;color:var(--ink);text-transform:none;letter-spacing:.02em;display:block;margin-top:2px}.addr-line{color:var(--ink);font-size:inherit}
+.strip b{display:block}

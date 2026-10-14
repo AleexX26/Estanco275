@@ -13,7 +13,7 @@
 <meta property="og:description" content="Estanco, artículos para shisha, fotocopias, bebidas frías y productos ONCE en Latina (Madrid). Horarios y cómo llegar.">
 <meta name="twitter:card" content="summary">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Store","name":"Estanco 275","description":"Estanco en Latina (Madrid) con artículos para shisha, fotocopias, bebidas frías y productos ONCE.","telephone":"+34608525617","address":{"@type":"PostalAddress","streetAddress":"Avenida de la Aviación, 71","postalCode":"28044","addressLocality":"Madrid","addressRegion":"Comunidad de Madrid","addressCountry":"ES"},"geo":{"@type":"GeoCoordinates","latitude":40.3748145,"longitude":-3.775388},"hasMap":"https://www.google.com/maps/place/Estanco+275/@40.3748145,-3.775388,17z","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"14:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"16:00","closes":"20:30"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"14:00"}]}
+{"@context":"https://schema.org","@type":"Store","name":"Estanco 275","description":"Estanco en Latina (Madrid) con artículos para shisha, fotocopias, bebidas frías y productos ONCE.","telephone":"+34608525617","address":{"@type":"PostalAddress","streetAddress":"Avenida de la Aviación, 71","postalCode":"28044","addressLocality":"Madrid","addressRegion":"Comunidad de Madrid","addressCountry":"ES"},"geo":{"@type":"GeoCoordinates","latitude":40.3748145,"longitude":-3.775388},"hasMap":"https://www.google.com/maps/place/Estanco+275/@40.3748145,-3.775388,17z"}
 </script>
 <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
 <link rel="stylesheet" href="./assets/styles.css">
@@ -32,7 +32,7 @@
       <p class="hero-title">Tu estanco de confianza en la Avenida de la Aviación.</p>
       <p class="hero-description">Trato cercano, horario de mañana y tarde y a un paso del barrio. Consulta cuándo abrimos y cómo llegar.</p>
       <ul class="badges">
-        <li>Av. de la Aviación, 71</li>
+        <li data-bind="direccion">Avenida de la Aviación, 71</li>
         <li>Lun–Sáb</li>
         <li><span class="stars" aria-hidden="true">★</span> 4,4 en Google · 19 reseñas</li>
       </ul>
@@ -46,7 +46,7 @@
     </div>
   </section>
 
-  <div class="strip"><div class="wrap"><span><b>Mañanas</b> 9:00–14:00</span><span><b>Tardes</b> 16:00–20:30</span><span><b>Sábados</b> 9:00–14:00</span><span><b>Domingos</b> Cerrado</span></div></div>
+  <div class="strip"><div class="wrap"><span><b>Lunes a viernes</b> <i data-bind="horario.semana">9:00–14:00 · 16:00–20:30</i></span><span><b>Sábados</b> <i data-bind="horario.sabado">9:00–14:00</i></span><span><b>Domingos</b> <i data-bind="horario.domingo">Cerrado</i></span></div></div>
 
   <section id="servicios" class="wrap section" aria-labelledby="servicios-titulo">
     <div class="section-heading">
@@ -77,9 +77,9 @@
       <table class="schedule" id="tabla-horario">
         <caption class="sr-only">Horario de atención al público</caption>
         <tbody>
-          <tr data-d="1,2,3,4,5"><th scope="row">Lunes a viernes</th><td>9:00–14:00 · 16:00–20:30</td></tr>
-          <tr data-d="6"><th scope="row">Sábado</th><td>9:00–14:00</td></tr>
-          <tr data-d="0" class="closed"><th scope="row">Domingo</th><td>Cerrado</td></tr>
+          <tr data-d="1,2,3,4,5"><th scope="row">Lunes a viernes</th><td data-bind="horario.semana">9:00–14:00 · 16:00–20:30</td></tr>
+          <tr data-d="6"><th scope="row">Sábado</th><td data-bind="horario.sabado">9:00–14:00</td></tr>
+          <tr data-d="0" class="closed"><th scope="row">Domingo</th><td data-bind="horario.domingo">Cerrado</td></tr>
         </tbody>
       </table>
     </div>
@@ -102,13 +102,13 @@
       <div class="section-heading">
         <p class="eyebrow"><span class="section-number">04</span> Ubicación</p>
         <h2 id="ubicacion-titulo">Cómo encontrarnos</h2>
-        <address>Avenida de la Aviación, 71<br><span>28044 · Latina · Madrid</span></address>
+        <address><span class="addr-line" data-bind="direccion">Avenida de la Aviación, 71</span><br><span data-bind="ciudad">28044 · Latina · Madrid</span></address>
         <a class="button button-primary" href="https://www.google.com/maps/place/Estanco+275/@40.3748145,-3.775388,17z/data=!4m6!3m5!1s0xd41890064ca05d3:0x3969ba17244f8f86!8m2!3d40.3748145!4d-3.775388" rel="noreferrer">Cómo llegar</a>
         <p class="small-note">El mapa de Google solo se carga cuando pulsas «Cargar mapa»; Google puede entonces usar cookies.</p>
       </div>
       <div class="location-panel" id="mapa">
         <svg class="pin icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
-        <p>Avenida de la Aviación, 71</p><span>LATINA · MADRID</span>
+        <p data-bind="direccion">Avenida de la Aviación, 71</p><span>LATINA · MADRID</span>
         <button type="button" class="button button-outline" id="cargar-mapa">Cargar mapa</button>
       </div>
     </div>
@@ -121,8 +121,8 @@
       <p>Para consultas sobre horarios o ubicación.</p>
     </div>
     <article class="card contact-card">
-      <div><small>Teléfono</small><p class="big">608 52 56 17</p></div>
-      <a class="button button-outline" href="tel:+34608525617">Llamar</a>
+      <div><small>Teléfono</small><p class="big" data-bind="telefono">608 52 56 17</p></div>
+      <a class="button button-outline" data-bind-tel href="tel:+34608525617">Llamar</a>
     </article>
     <p class="contact-note">No se gestionan pedidos ni reservas de tabaco a través de esta web.</p>
     <div class="legal18"><strong aria-hidden="true">18</strong><p><b>Venta de tabaco y juegos de azar prohibida a menores de 18 años.</b> Fumar perjudica seriamente la salud. Podemos pedirte que acredites tu edad.</p></div>
@@ -130,11 +130,12 @@
 </main>
 <footer class="site-footer">
   <div class="wrap footer-top">
-    <div><a class="brand" href="./"><span class="brand-mark" aria-hidden="true">275</span><span>Estanco 275</span></a><p>Avenida de la Aviación, 71 · Madrid</p></div>
+    <div><a class="brand" href="./"><span class="brand-mark" aria-hidden="true">275</span><span>Estanco 275</span></a><p><span data-bind="direccion">Avenida de la Aviación, 71</span> · Madrid</p></div>
     <nav aria-label="Información legal"><a href="./aviso-legal.html">Aviso legal</a><a href="./privacidad.html">Privacidad</a><a href="./almacenamiento.html">Cookies y almacenamiento</a></nav>
   </div>
   <div class="wrap footer-bottom"><span>© Estanco 275</span><a href="#inicio">Volver arriba ↑</a></div>
 </footer>
+<script src="/assets/datos.js" defer></script>
 <script>
 (function(){var b=document.getElementById('cargar-mapa');if(!b)return;b.addEventListener('click',function(){var p=document.getElementById('mapa');p.innerHTML='<iframe title="Mapa de Estanco 275" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.53587277198!2d-3.775388!3d40.37481450000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd41890064ca05d3%3A0x3969ba17244f8f86!2sEstanco%20275!5e0!3m2!1ses!2ses!4v1791995680441!5m2!1ses!2ses" style="border:0;width:100%;height:100%" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>';p.classList.add('loaded')})})();
 (function(){var d=new Date().getDay();document.querySelectorAll('#tabla-horario tr').forEach(function(r){if(r.dataset.d.split(',').indexOf(String(d))>-1)r.classList.add('today')})})();

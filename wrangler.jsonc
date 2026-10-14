@@ -1,8 +1,12 @@
 {
   "name": "estanco275",
+  "main": "src/worker.js",
   "compatibility_date": "2026-10-14",
   "assets": {
     "directory": ".",
-    "not_found_handling": "404-page"
-  }
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
+  },
+  "kv_namespaces": [{ "binding": "CONFIG" }]
 }
