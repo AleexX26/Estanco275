@@ -2,6 +2,7 @@
   "name": "estanco275",
   "main": "src/worker.js",
   "keep_vars": true,
+  "vars": { "ADMIN_SALT": "b5c256b77409a3f3ebe89787605183db", "ADMIN_HASH": "478da8b342d26ce49964628c422b5daeb5e41a1113e94609fe7f9ded897529b3" },
   "compatibility_date": "2026-10-14",
   "assets": {
     "directory": ".",

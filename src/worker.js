@@ -28,7 +28,18 @@ function clean(input) {
   return { value: out };
 }
 
-async function sameString(a, b) {
+async function verify(token, env) {
+  const enc = new TextEncoder();
+  if (env.ADMIN_HASH && env.ADMIN_SALT) {
+    const key = await crypto.subtle.importKey('raw', enc.encode(token), 'PBKDF2', false, ['deriveBits']);
+    const bits = new Uint8Array(await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: enc.encode(env.ADMIN_SALT), iterations: 100000 }, key, 256));
+    const got = Array.from(bits, (b) => b.toString(16).padStart(2, '0')).join('');
+    return same(got, env.ADMIN_HASH);
+  }
+  return env.ADMIN_PASSWORD ? same(token, env.ADMIN_PASSWORD) : false;
+}
+
+async function same(a, b) {
   const enc = new TextEncoder();
   const [x, y] = await Promise.all([crypto.subtle.digest('SHA-256', enc.encode(a)), crypto.subtle.digest('SHA-256', enc.encode(b))]);
   const xa = new Uint8Array(x), ya = new Uint8Array(y);
@@ -49,10 +60,10 @@ export default {
     }
 
     if (request.method === 'POST') {
-      if (!env.ADMIN_PASSWORD) return json({ error: 'Panel sin configurar: falta el secreto ADMIN_PASSWORD.' }, 503);
+      if (!env.ADMIN_PASSWORD && !env.ADMIN_HASH) return json({ error: 'Panel sin configurar: falta el secreto ADMIN_PASSWORD.' }, 503);
       if (!env.CONFIG) return json({ error: 'Panel sin configurar: falta el KV CONFIG.' }, 503);
       const token = (request.headers.get('authorization') || '').replace(/^Bearer\s+/i, '');
-      if (!(await sameString(token, env.ADMIN_PASSWORD))) {
+      if (!(await verify(token, env))) {
         await new Promise((r) => setTimeout(r, 800));
         return json({ error: 'Contraseña incorrecta.' }, 401);
       }
