@@ -10,7 +10,7 @@
     '<div class="age-box" role="dialog" aria-modal="true" aria-labelledby="age-title" aria-describedby="age-text">' +
     '<div class="age-badge" aria-hidden="true">18</div>' +
     '<h2 id="age-title">¿Eres mayor de 18 años?</h2>' +
-    '<p id="age-text">Esta web es para mayores de edad. La venta de tabaco y de juegos de azar está prohibida a menores.</p>' +
+    '<p id="age-text">Esta web es para mayores de edad. La venta de tabaco está prohibida a menores.</p>' +
     '<div class="age-actions"><button type="button" class="button button-primary" id="age-yes">Sí, soy mayor de 18</button>' +
     '<button type="button" class="button button-outline" id="age-no">No</button></div>' +
     '</div>';
