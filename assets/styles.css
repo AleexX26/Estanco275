@@ -117,3 +117,4 @@ body{font-size:16px}
 .age-actions{display:flex;gap:12px;flex-direction:column}
 .age-actions .button{justify-content:center;cursor:pointer;width:100%}
 @media(min-width:480px){.age-actions{flex-direction:row}.age-actions .button{width:auto;flex:1}}
+@media(min-width:821px){.services{grid-template-columns:repeat(3,1fr)}}
