@@ -108,3 +108,12 @@ body{font-size:16px}
 }
 .strip i{font-style:normal;color:var(--ink);text-transform:none;letter-spacing:.02em;display:block;margin-top:2px}.addr-line{color:var(--ink);font-size:inherit}
 .strip b{display:block}
+.age-lock{overflow:hidden}
+.age-gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:20px;background:rgba(10,6,3,.94);backdrop-filter:blur(6px)}
+.age-box{width:min(440px,100%);text-align:center;background:var(--panel);border:1px solid var(--brass2);border-radius:8px;padding:34px 26px;box-shadow:0 30px 80px #000a}
+.age-badge{display:grid;place-items:center;width:68px;height:68px;margin:0 auto 14px;border:3px solid var(--red);border-radius:50%;color:var(--red);font:800 24px system-ui,sans-serif}
+.age-box h2{margin:0 0 10px;font-size:26px}
+.age-box p{margin:0 0 24px;color:var(--mute);font-size:16px}
+.age-actions{display:flex;gap:12px;flex-direction:column}
+.age-actions .button{justify-content:center;cursor:pointer;width:100%}
+@media(min-width:480px){.age-actions{flex-direction:row}.age-actions .button{width:auto;flex:1}}
