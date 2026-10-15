@@ -1,7 +1,5 @@
-// Aviso de mayoría de edad al entrar. Recuerda un "Sí" en este navegador (localStorage).
+// Aviso de mayoría de edad: se muestra en cada entrada a la portada (no se guarda nada).
 (function () {
-  var KEY = 'estanco275-18';
-  try { if (localStorage.getItem(KEY) === '1') return; } catch (e) {}
 
   var prev = document.activeElement;
   var root = document.createElement('div');
@@ -21,7 +19,6 @@
   yes.focus();
 
   yes.addEventListener('click', function () {
-    try { localStorage.setItem(KEY, '1'); } catch (e) {}
     root.remove();
     document.documentElement.classList.remove('age-lock');
     if (prev && prev.focus) prev.focus();
